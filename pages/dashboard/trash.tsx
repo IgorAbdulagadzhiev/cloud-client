@@ -17,15 +17,15 @@ interface Props {
   items: FileItem[];
 }
 
-const DashboardPage: NextPage<Props> = ({ items }) => {
+const DashboardTrash: NextPage<Props> = ({ items }) => {
   return (
     <DashboardLayout>
-      <Files items={items} withActions />
+      <Files items={items} />
     </DashboardLayout>
   );
 };
 
-DashboardPage.getLayout = (page: React.ReactNode) => {
+DashboardTrash.getLayout = (page: React.ReactNode) => {
   return <Layout title="Dashboard / Главная">{page}</Layout>;
 };
 
@@ -37,7 +37,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 
   try {
-    const items = await Api.files.getAll();
+    const items = await Api.files.getAll('trash');
 
     return {
       props: {
@@ -54,4 +54,4 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 
-export default DashboardPage;
+export default DashboardTrash;

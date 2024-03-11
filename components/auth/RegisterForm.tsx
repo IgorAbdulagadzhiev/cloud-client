@@ -1,21 +1,15 @@
 import React from 'react';
 import styles from './Auth.module.scss';
 import { Button, Form, Input, notification } from 'antd';
-import { LoginFormDTO } from '@/api/dto/auth.dto';
+import { RegisterFormDTO } from '@/api/dto/auth.dto';
 
 import * as Api from '@/api';
 import { setCookie } from 'nookies';
 
-export const LoginForm: React.FC = ({}) => {
-  const onSubmit = async (values: LoginFormDTO) => {
+export const RegisterForm: React.FC = () => {
+  const onSubmit = async (values: RegisterFormDTO) => {
     try {
-      const { token } = await Api.auth.login(values);
-
-      notification.success({
-        message: 'Успешно!',
-        description: 'Переходим в админ-панель...',
-        duration: 2,
-      });
+      const { token } = await Api.auth.register(values);
 
       setCookie(null, '_token', token, {
         path: '/',
@@ -23,7 +17,7 @@ export const LoginForm: React.FC = ({}) => {
 
       location.href = '/dashboard';
     } catch (err) {
-      console.warn('LoginForm', err);
+      console.warn('RegisterForm', err);
 
       notification.error({
         message: 'Ошибка!',
@@ -32,7 +26,6 @@ export const LoginForm: React.FC = ({}) => {
       });
     }
   };
-
   return (
     <div className={styles.formBlock}>
       <Form name="basic" labelCol={{ span: 8 }} onFinish={onSubmit}>
@@ -48,6 +41,20 @@ export const LoginForm: React.FC = ({}) => {
         >
           <Input />
         </Form.Item>
+
+        <Form.Item
+          label="Полное имя"
+          name="fullName"
+          rules={[
+            {
+              required: true,
+              message: 'Укажите полное имя',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
         <Form.Item
           label="Пароль"
           name="password"
@@ -63,7 +70,7 @@ export const LoginForm: React.FC = ({}) => {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Войти
+            Регистрация
           </Button>
         </Form.Item>
       </Form>

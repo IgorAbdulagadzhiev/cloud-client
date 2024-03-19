@@ -29,7 +29,7 @@ export const FileCard: React.FC<FileCardProps> = ({
         {imageUrl ? (
           <img className={styles.image} src={imageUrl} alt="File" />
         ) : (
-          <FileTextOutlined />
+          <FileTextOutlined rev={undefined} />
         )}
       </div>
       <span>{originalName}</span>

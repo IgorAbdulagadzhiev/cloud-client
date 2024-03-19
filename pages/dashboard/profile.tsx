@@ -7,10 +7,11 @@ import { checkAuth } from '@/utils/checkAuth';
 
 import * as Api from '@/api';
 import { Layout } from '@/layouts/Layout';
+import { NextPageWithLayout } from '@/types';
 
 interface Props extends User {}
 
-export const DashboardProfilePage: NextPage<Props> = ({
+export const DashboardProfilePage: NextPageWithLayout<Props> = ({
   id,
   email,
   fullName,

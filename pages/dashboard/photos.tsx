@@ -6,18 +6,12 @@ import * as Api from '@/api';
 import { FileItem } from '@/api/dto/files.dto';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import { Files } from '@/modules/Files';
-
-enum links {
-  dashboard = '/dashboard',
-  photos = '/dashboard/photos',
-  trash = '/dashboard/trash',
-}
-
+import { NextPageWithLayout } from '@/types';
 interface Props {
   items: FileItem[];
 }
 
-const DashboardPhotos: NextPage<Props> = ({ items }) => {
+const DashboardPhotos: NextPageWithLayout<Props> = ({ items }) => {
   return (
     <DashboardLayout>
       <Files items={items} withActions />

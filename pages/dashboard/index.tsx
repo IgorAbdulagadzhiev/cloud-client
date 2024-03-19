@@ -1,23 +1,18 @@
 import { Layout } from '@/layouts/Layout';
 import { checkAuth } from '@/utils/checkAuth';
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { GetServerSidePropsContext } from 'next';
 
 import * as Api from '@/api';
 import { FileItem } from '@/api/dto/files.dto';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import { Files } from '@/modules/Files';
-
-enum links {
-  dashboard = '/dashboard',
-  photos = '/dashboard/photos',
-  trash = '/dashboard/trash',
-}
+import { NextPageWithLayout } from '@/types';
 
 interface Props {
   items: FileItem[];
 }
 
-const DashboardPage: NextPage<Props> = ({ items }) => {
+const DashboardPage: NextPageWithLayout<Props> = ({ items }) => {
   return (
     <DashboardLayout>
       <Files items={items} withActions />

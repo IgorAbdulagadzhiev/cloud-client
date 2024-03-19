@@ -1,23 +1,20 @@
 import { Layout } from '@/layouts/Layout';
 import { checkAuth } from '@/utils/checkAuth';
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { GetServerSidePropsContext } from 'next';
 
 import * as Api from '@/api';
 import { FileItem } from '@/api/dto/files.dto';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import { Files } from '@/modules/Files';
+import { ReactElement, ReactNode } from 'react';
+import { NextPageWithLayout } from '@/types';
 
-enum links {
-  dashboard = '/dashboard',
-  photos = '/dashboard/photos',
-  trash = '/dashboard/trash',
-}
-
+type GetLayout = (page: ReactNode) => ReactNode;
 interface Props {
   items: FileItem[];
 }
 
-const DashboardTrash: NextPage<Props> = ({ items }) => {
+const DashboardTrash: NextPageWithLayout<Props> = ({ items }) => {
   return (
     <DashboardLayout>
       <Files items={items} />
@@ -25,7 +22,7 @@ const DashboardTrash: NextPage<Props> = ({ items }) => {
   );
 };
 
-DashboardTrash.getLayout = (page: React.ReactNode) => {
+DashboardTrash.getLayout = (page: ReactElement) => {
   return <Layout title="Dashboard / Главная">{page}</Layout>;
 };
 
